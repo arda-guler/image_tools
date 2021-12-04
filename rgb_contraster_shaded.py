@@ -40,7 +40,7 @@ def main():
 
     channel_num = len(pixels[0,0])
 
-    def contrastify(r, g, b):
+    def contrastify(r, g, b, a=None):
         
         bright = int((r + g + b)/3)
         
@@ -59,7 +59,10 @@ def main():
         else:
             b = 0
 
-        return r, g, b
+        if not a:
+            return r, g, b
+        else:
+            return r, g, b, a
 
     # user comforting variable
     # very important
@@ -84,10 +87,7 @@ def main():
         for y in range(image.size[1]):
             for x in range(image.size[0]):
                 r, g, b, a = pixels[x, y][0], pixels[x, y][1], pixels[x, y][2], pixels[x, y][3]
-                r = contrastify(r)
-                g = contrastify(g)
-                b = contrastify(b)
-                a = contrastify(a)
+                r, g, b, a = contrastify(r, g, b, a)
                 pixels[x, y] = (r, g, b, a)
 
                 i += 1
