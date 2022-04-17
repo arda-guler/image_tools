@@ -36,7 +36,7 @@ def import_image():
 def main():
     image, pixels, filetitle, fileextension = import_image()
 
-    print("\nApplying alternative shaded RGB contrast to " + filetitle + fileextension + "\n")
+    print("\nApplying rich shaded RGB contrast to " + filetitle + fileextension + "\n")
 
     channel_num = len(pixels[0,0])
 

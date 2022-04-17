@@ -10,12 +10,12 @@ rgb_contraster_shaded:
                 value
 				
 rgb_richContrast:
-				converts color to closest rgb or cyan/magenta/
-				yellow and assigns max (255) brightness
+                converts color to closest rgb or cyan/magenta/
+                yellow and assigns max (255) brightness
 				
 rgb_richContrast_shaded:
-				does what rgb_richContrast does, but protects
-				brightness
+                does what rgb_richContrast does, but protects
+                brightness
 				
 rgb_separator:  assigns max value to whichever color is
                 the dominant one in a pixel. if multiple
