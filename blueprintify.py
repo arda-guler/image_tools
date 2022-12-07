@@ -65,6 +65,12 @@ def main():
     global colors
     image, pixels, filetitle, fileextension = import_image()
 
+    inverted = input("Invert? (y/N): ")
+    if inverted.lower() == "y":
+        inverted = True
+    else:
+        inverted = False
+        
     print("\nBlueprintifying " + filetitle + fileextension + "\n")
 
     channel_num = len(pixels[0,0])
@@ -79,21 +85,35 @@ def main():
     else:
         filter_val = int(filter_val_inp)
 
-    def filter_brightness(filter_val, r, g, b, a=None):
+    def filter_brightness(inverted, filter_val, r, g, b, a=None):
 
         bright = (r + g + b)/3
 
-        if bright > filter_val:
-            if a==None:
-                return 0, 25, 200
-            else:
-                return 0, 25, 200, a
+        if not inverted:
+            if bright > filter_val:
+                if a==None:
+                    return 0, 25, 200
+                else:
+                    return 0, 25, 200, a
 
-        else:
-            if a==None:
-                return 210, 210, 215
             else:
-                return 210, 210, 215, a
+                if a==None:
+                    return 210, 210, 215
+                else:
+                    return 210, 210, 215, a
+        else:
+            if bright < filter_val:
+                if a==None:
+                    return 0, 25, 200
+                else:
+                    return 0, 25, 200, a
+
+            else:
+                if a==None:
+                    return 210, 210, 215
+                else:
+                    return 210, 210, 215, a
+            
 
     # user comforting variable
     # very important
@@ -106,7 +126,7 @@ def main():
             for x in range(image.size[0]):
                 i += 1
                 r, g, b = pixels[x, y][0], pixels[x, y][1], pixels[x, y][2]
-                r, g, b = filter_brightness(filter_val, r, g, b)
+                r, g, b = filter_brightness(inverted, filter_val, r, g, b)
                 pixels[x, y] = (r, g, b)
 
                 i += 1
@@ -119,7 +139,7 @@ def main():
         for y in range(image.size[1]):
             for x in range(image.size[0]):
                 r, g, b, a = pixels[x, y][0], pixels[x, y][1], pixels[x, y][2], pixels[x, y][3]
-                r, g, b, a = filter_brightness(filter_val, r, g, b, a)
+                r, g, b, a = filter_brightness(inverted, filter_val, r, g, b, a)
                 pixels[x, y] = (r, g, b, a)
 
                 i += 1
